@@ -17,7 +17,6 @@ function makeACake(cb) {
       })
     })
   })
-]
 }
 
 makeACake((err, cake) => {

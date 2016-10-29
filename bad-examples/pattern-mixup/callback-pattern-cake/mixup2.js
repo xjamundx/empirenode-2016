@@ -4,20 +4,19 @@ var baker = require('baker')
 var fs = require('fs')
 
 function makeACake(cb) {
-    fs.readFile('./ingredients', (err, ingredients) => {
+  fs.readFile('./ingredients', (err, ingredients) => {
+    if (err) cb(err)
+    baker.mix(ingredients, err => {
       if (err) cb(err)
-      baker.mix(ingredients, err => {
+      baker.putInOven(err => {
         if (err) cb(err)
-        baker.putInOven(err => {
+        baker.takeOut((err, cake) => {
           if (err) cb(err)
-          baker.takeOut((err, cake) => {
-            if (err) cb(err)
-            cb(cake)
-          })
+          cb(cake)
         })
       })
     })
-  ]
+  })
 }
 
 makeACake((err, cake) => {
